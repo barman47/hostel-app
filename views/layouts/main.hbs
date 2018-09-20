@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{title}}</title>
+        <link rel="stylesheet" href="/css/materialize.min.css">
+        <link rel="stylesheet" href="/css/materialdesignicons.min.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="{{style}}">
+        <style>
+            .messages {
+                padding: 10px 0;
+                margin: 0px !important;
+            }
+
+            #failureText {
+                color: #d32f2f;
+                background-color: rgba(244, 67, 54, .30);
+            }
+
+            #successText {
+                color: #388e3c;
+                background-color: #a5d6a7;
+            }
+
+            .successClose:hover {
+                color: #ff0000;
+                cursor: pointer;
+            }
+
+            .failureClose:hover {
+                color: #ffffff;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+
+    <body>
+        {{#if success_message}}
+            <p id="successText" class="center messages">{{success_message}}<i class="right mdi mdi-close mdi-18px successClose"></i></p>
+        {{/if}}
+
+        {{#if failure_message}}
+            <p id="failureText" class="center messages">{{failure_message}}<i class="right mdi mdi-close mdi-18px failureClose"></i></p>
+        {{/if}}
+        {{{body}}}
+        <footer class="center bg-dark">
+            <p>Uzoanya Dominic &copy; 2018</p>
+        </footer>
+        <script src="/js/jquery-3.1.1.min.js"></script>
+        <script src="/js/materialize.min.js"></script>
+        <script src="{{script}}"></script>
+        <script>
+            $('.successClose').click(function () {
+                $('#successText').remove();
+            });
+
+            $('.failureClose').click(function () {
+                $('#failureText').remove();
+            });
+        </script>
+    </body>
+
+</html>
