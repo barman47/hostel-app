@@ -1,0 +1,26 @@
+.center {
+    text-align: center;
+    margin: auto;
+}
+
+.bg-light {
+    background: #f4f4f4;
+    color: #333;
+}
+
+.bg-dark {
+    background: #333;
+    color: #f4f4f4;
+}
+
+footer {
+    padding: 2.2rem;
+    /* position: fixed;
+    bottom: 0;
+    width: 100%;
+    */
+} 
+
+footer p {
+    margin: 0;
+}

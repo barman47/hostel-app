@@ -18,21 +18,21 @@ const config = require('./config/database');
 const port = process.env.PORT || 5000;
 
 
-// mongoose.connect(config.database, {
-//     useNewUrlParser: true
-// });
+mongoose.connect(config.database, {
+    useNewUrlParser: true
+});
 
-// let conn = mongoose.connection;
+let conn = mongoose.connection;
 
-// conn.once('open', () => {
-//     console.log('Database Connection Established Successfully.');
-// });
+conn.once('open', () => {
+    console.log('Database Connection Established Successfully.');
+});
 
-// conn.on('error', (err) => {
-//     console.log('Unable to Connect to Database. ' + err);
-// });
+conn.on('error', (err) => {
+    console.log('Unable to Connect to Database. ' + err);
+});
 
-const users = require('./routes/users');
+const students = require('./routes/students');
 var app = express();
 
 
@@ -83,7 +83,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/users', users);
+app.use('/students', students);
 
 app.get('/', (req, res) => {
     res.render('index', {

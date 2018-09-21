@@ -1,0 +1,35 @@
+html, body {    
+    height: 100%;
+    margin: 0px;
+    padding: 0px; 
+}
+
+
+#form-container {
+    display: table;
+    width: 100%;
+}
+
+form {
+    border: 2px solid #f1f1f1;
+    padding: 20px;
+    width: 35% !important;
+    height: 250% !important;
+    text-align: center;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 15%;
+    margin-bottom: 5%;
+}
+
+form h4 {
+    color: #26a69a;
+}
+
+button {
+    width: 100%;
+}
+
+.form-icons {
+    color: #c5c5c5;
+}

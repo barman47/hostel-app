@@ -103,29 +103,6 @@ body {
     color: #26a69a;
 }
 
-.center {
-    text-align: center;
-    margin: auto;
-}
-
-.bg-light {
-    background: #f4f4f4;
-    color: #333;
-}
-
-.bg-dark {
-    background: #333;
-    color: #f4f4f4;
-}
-
-footer {
-    padding: 2.2rem;
-}
-
-footer p {
-    margin: 0;
-}
-
 /* Small Screens */
 @media (max-width: 560px) {
     .showcase::after {

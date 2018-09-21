@@ -1,0 +1,25 @@
+{{#if success_message}}
+    <p id="successText" class="center messages">{{success_message}}<i class="right mdi mdi-close mdi-18px successClose"></i></p>
+{{/if}}
+{{#if failure_message}}
+    <p id="failureText" class="center messages">{{failure_message}}<i class="right mdi mdi-close mdi-18px failureClose"></i></p>
+{{/if}}
+<div id="form-container">
+    <form name="form" action="/students/login" method="POST">
+        <h4 class="center">Student Login</h4>
+        <div class="input-field">
+            <i class="mdi mdi-email-outline prefix form-icons"></i>
+            <input type="email" name="email" id="email" value="{{email}}" autofocus>
+            <label for="email">Email</label>
+        </div>
+        <div class="input-field">
+            <i class="mdi mdi-lock-outline prefix form-icons"></i>
+            <input type="password" name="password" id="password" value="{{password}}">
+            <label for="password">Password</label>
+        </div>
+        <div class="input-field center-align">
+            <button id="loginButton" class="btn" type="submit">Login</button>
+            <p>Not Registered? <a href="/students/register">Sign up!</a></p>
+        </div>
+    </form>
+</div>

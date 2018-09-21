@@ -9,16 +9,22 @@ form {
     width: 70% !important;
     margin-left: auto !important;
     margin-right: auto !important;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+form h4 {
+    color: #26a69a;
 }
 
 button {
     width: 100%;
-    border: 2px solid #388e3c !important;
+    /* border: 2px solid #388e3c !important;
     background-color: #ffffff !important;
-    color: #388e3c !important;
+    color: #388e3c !important; */
 }
 
-button:hover {
+/* button:hover {
     background-color: #388e3c !important;
     color: #f5f5f5 !important;
 }
@@ -42,7 +48,7 @@ button:hover {
 
 .input-field .prefix.active {
     color: #328036;
-}
+} */
 
 .form-icons {
     color: #c5c5c5;
