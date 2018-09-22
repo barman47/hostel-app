@@ -38,7 +38,8 @@ router.post('/register', (req, res) => {
     if (errors) {
         res.render('register', {
             title: 'Sign up',
-            style: '/css/index.css',
+            style: '/css/signup.css',
+            script: '/js/signup.js',
             errors: errors,
             firstName: newStudent.firstName,
             lastName: newStudent.lastName,
@@ -61,18 +62,20 @@ router.post('/register', (req, res) => {
                 return console.log(err);
             }
             if (foundStudent) {
-                res.render('register', {
-                    title: 'Sign up',
-                    style: '/css/index.css',
-                    error: 'Studentname already taken',
-                    name: newStudent.name,
+                res.render('signup', {
+                    title: 'Student Sign up',
+                    style: '/css/signup.css',
+                    script: '/js/signup.js',
+                    error: 'Email already exists!',
+                    firstName: newStudent.firstName,
+                    lastName: newStudent.lastName,
                     email: newStudent.email,
                     studentname: newStudent.studentname,
                     password: newStudent.password,
                     confirmPassword: newStudent.confirmPassword,
                     gender: newStudent.gender
                 });
-            } else{
+            } else {
                 bcrypt.genSalt(10, (err, salt) => {
                     if (err) {
                         return console.log(err);
@@ -111,22 +114,56 @@ router.post('/login', (req, res, next) => {
         }
         if (!student) {
             req.flash('failure', 'Incorrect Email or Password.');
-            res.send('Incorrect Email or password');
-            // res.render('login', {
-            //     title: 'Student Login',
-            //     style: '/css/login.css',
-            //     email: req.body.email,
-            //     password: req.body.password
-            // });
+            res.render('login', {
+                title: 'Student Login',
+                style: '/css/login.css',
+                email: req.body.email,
+                password: req.body.password
+            });
         } else {
             req.logIn(student, (err) => {
                 let id = student._id;
                 id = mongoose.Types.ObjectId(id); 
-                res.send('You are logged in');
-                // res.redirect(`/students/dashboard/${id}`);
+                res.redirect(`/students/dashboard/${id}`);
             });
         }
     })(req, res, next);
+});
+
+router.get('/dashboard/:id', (req, res) => {
+    Student.findOne({_id: req.params.id}, (err, student) => {
+        if (err) {
+            return console.log(err);
+        } else {
+            res.render('dashboard', {
+                title: `${student.firstName} ${student.lastName} - Dashboard`,
+                style: '/css/dashboard.css',
+                script: '/js/dashboard.js',
+                id: student._id
+            });
+        }
+    });
+});
+
+router.get('/bedspace/:id', (req, res) => {
+    res.render('bedspace', {
+        title: 'Bedspace Application',
+        style: '/css/bedspace.css',
+        script: '/js/bedspace.js',
+        id: req.params.id
+    });
+});
+
+router.get('/receipt', (req, res) => {
+    res.render('receipt', {
+        title: 'Payment Receipt'
+    });
+});
+
+router.get('/logout', (req, res) => {
+    req.logOut();
+    req.flash('success', 'Your are logged out.');
+    res.redirect('/');
 });
 
 module.exports = router;

@@ -1,0 +1,39 @@
+nav {
+    background-color: #26a69a;
+}
+
+nav li  {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+#form-container {
+    display: flex;
+    align-self: center;
+    top: 50px !important;
+}
+
+form {
+    border: 2px solid #f1f1f1;
+    width: 70% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding: 20px !important;
+}
+
+form h4 {
+    color: #26a69a;
+}
+
+button {
+    width: 100%;
+    /* border: 2px solid #388e3c !important;
+    background-color: #ffffff !important;
+    color: #388e3c !important; */
+}
+
+.form-icons {
+    color: #c5c5c5;
+}

@@ -1,0 +1,87 @@
+<section>
+    <div class="container section">
+        <div>
+            <h4 class="center">App Name Payment Receipt</h4>
+            <br><br>
+            <span class="left">Name: Uzoanya Dominic</span>
+            <span class="right">Date: 14th April, 2080</span>
+            <br>
+            <p>Sechedule of Payment: Anually.</p>
+        </div>
+
+        <table id="receipt" style="margin-top: -150px;">
+            <div class="row">
+                <tr>
+                    <div class="col s2"><th>SN</th></div>
+                    <div class="col s6"><th>Heads</th></div>
+                    <div class="col s2"><th>Fee per student <i class="mdi mdi-currency-ngn"></i></th></div>
+                    <div class="col s2"><th></th></div>
+                </tr>
+            </div>
+            <div class="row">
+                <tr>
+                    <div class="col s2"><td></td></div>
+                    <div class="col s6"><td></td></div>
+                    <div class="col s2"><td>First Semester</td></div>
+                    <div class="col s2"><td>Second Semester</td></div>
+                </tr>
+            </div>
+            <div class="row">
+                <tr>
+                    <div class="col s2"><td>1. </td></div>
+                    <div class="col s6"><td>Annual Charges</td></div>
+                    <div class="col s2"><td>10,000</td></div>
+                    <div class="col s2"><td>10,000</td></div>
+                </tr>
+            </div>
+            <div class="row">
+                <tr>
+                    <div class="col s2"><td>2. </td></div>
+                    <div class="col s6"><td>Security Charges (refundable for first year students / newly admitted)</td></div>
+                    <div class="col s2"><td>&nbsp;&nbsp;5,000</td></div>
+                    <div class="col s2"><td>&nbsp;&nbsp;5,000</td></div>
+                </tr>
+            </div>
+            <div class="row">
+                <tr>
+                    <div class="col s2"><td>3. </td></div>
+                    <div class="col s6"><td>Electricity Charges</td></div>
+                    <div class="col s2"><td>&nbsp;&nbsp;2,500</td></div>
+                    <div class="col s2"><td>&nbsp;&nbsp;2,500</td></div>
+                </tr>
+            </div>
+            <div class="row">
+                <tr>
+                    <div class="col s2"><td>4. </td></div>
+                    <div class="col s6"><td>Transportation</td></div>
+                    <div class="col s2"><td>&nbsp;&nbsp;3,000</td></div>
+                    <div class="col s2"><td>&nbsp;&nbsp;3,000</td></div>
+                </tr>
+            </div>
+            <div class="row">
+                <tr>
+                    <div class="col s2"><td></td></div>
+                    <div class="col s6"><td><strong>Total</strong></td></div>
+                    <div class="col s2"><td></td></div>
+                    <div class="col s2"><td><i class="mdi mdi-currency-ngn"></i><strong>41,000.00</strong></td></div>
+                </tr>
+            </div>
+            <div class="row">
+                <tr>
+                    <div class="col s12">
+                        <td><button id="printButton" class="btn waves-effect waves-dark">Print Receipt</button></td>
+                    </div>
+                </tr>
+            </div>
+        </table>
+    </div>
+</section>
+<script>
+    var printButton = document.querySelector('#printButton');
+    function printPage () {
+        printButton.style.visibility = 'hidden';
+        window.print();
+        printButton.style.visibility = 'visible';
+    }
+    printButton.addEventListener('click', printPage);
+</script>

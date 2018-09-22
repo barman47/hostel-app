@@ -10,6 +10,11 @@ html, body {
     width: 100%;
 }
 
+#loginAvatar {
+    font-size: 120px;
+    color: #c5c5c5;
+}
+
 form {
     border: 2px solid #f1f1f1;
     padding: 20px;
@@ -18,7 +23,7 @@ form {
     text-align: center;
     margin-left: auto !important;
     margin-right: auto !important;
-    margin-top: 15%;
+    margin-top: 5%;
     margin-bottom: 5%;
 }
 

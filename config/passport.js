@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 
 module.exports = (passport) => {
     passport.use(new LocalStrategy({
-        studentnameField: "email",
+        usernameField: "email",
         passwordField: "password",
         passReqToCallback: true
     }, function verifyCallback(req, email, password, done) {

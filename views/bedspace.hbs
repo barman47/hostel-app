@@ -1,0 +1,93 @@
+<header>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper container">
+                <a href="#" class="brand-logo left">Logo</a>
+                <ul id="nav-mobile" class="right">
+                    <li><a href="/"><i class="mdi mdi-home left"></i>Home</a></li>
+                    <li><a href="students/logout"><i class="mdi mdi-logout-variant right"></i>Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<main>
+    <div id="form-container" class="row container valign-wrapper">
+        <form name="form" class="col s12" action="/students/register" method="POST">
+            <h4 class="center">Bedspace Application</h4>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="mdi mdi-account-outline prefix form-icons"></i>
+                    <input type="text" name="name" id="name" disabled value="{{name}}">
+                    <label for="name">Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 l6">
+                    <i class="mdi mdi-phone prefix form-icons"></i>
+                    <input type="text" name="phone" id="phone" class="validate" value="{{phone}}" autofocus>
+                    <label for="phone">Phone Number</label>
+                    <span class="helper-text" data-error="Please provide a valid phone number" data-success="">e.g. 09026525337</span>
+                </div>
+                <div class="input-field col s12 l6">
+                    <i class="mdi mdi-numeric prefix form-icons"></i>
+                    <input type="text" name="regNo" id="regNo" class="validate" value="{{regNo}}" autofocus>
+                    <label for="regNo">Registration Number</label>
+                    <span class="helper-text" data-error="Please a valid registration number e.g.MOUAU/13/266603" data-success="">e.g. MOUAU/13/26603</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <select name="hostelBlock">
+                        <option value="" disabled selected>Choose Block</option>
+                        <option value="Block A">Block A</option>
+                        <option value="Block B">Block B</option>
+                        <option value="Block C">Block C</option>
+                        <option value="Block D">Block D</option>
+                    </select>
+                    <label>Hostel Select</label>
+                </div>
+            </div>
+            <div class="row">
+                <h6 class="center">Payment Details</h6>
+                <div class="input-field col s12 l7">
+                    <i class="mdi mdi-credit-card prefix form-icons"></i>
+                    <input type="text" name="cardNumber" id="cardNumber" value="{{cardNumber}}">
+                    <label for="cardNumber">Debit Card Number</label>
+                </div>
+                <div class="input-field col s12 l5">
+                    <i class="mdi mdi-calendar prefix form-icons"></i>
+                    <input type="text" name="expiryDate" id="expiryDate" class="validate" value="{{expiryDate}}">
+                    <label for="expiryDate">Expiry Date</label>
+                    <span class="helper-text" data-error="Please a valid registration number e.g.MOUAU/13/266603" data-success="">e.g. MOUAU/13/26603</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 l5">
+                    <i class="mdi mdi-security-close prefix form-icons"></i>
+                    <input type="text" name="csc" id="csc" class="validate" value="{{csc}}">
+                    <label for="csc">CSC</label>
+                    <span class="helper-text" data-error="Please provide your csc" data-success="">The three-digit code behind your card</span>
+                </div>
+                <div class="input-field col s12 l7">
+                    <i class="mdi mdi-lock-outline prefix form-icons"></i>
+                    <input type="password" name="password" id="password" class="validate" value="{{password}}">
+                    <label for="password">Password</label>
+                    <span class="helper-text" data-error="Please provide your password" data-success="">Provide your password to authorize payment</span>
+                </div>
+            </div>
+            <div class="row">
+                
+            </div>
+            <div class="input-field center-align">
+                <button id="submitButton" class="btn" type="submit">Submit</button>
+                <p><a href="/students/dashboard/{{id}}">Back to dashboard</a></p>
+            </div>
+        </form>
+    </div>
+    <div class="container"><hr><br><br></div>
+</main>
+
+<footer class="center bg-dark">
+    <p>&copy; Copyright Hostel Application 2018</p>
+</footer>
