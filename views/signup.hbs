@@ -22,13 +22,25 @@
                     <label for="lastName">Last Name</label>
                     <span class="helper-text" data-error="Please provide your Last Name" data-success=""></span>
                 </div>
+                <div class="input-field col s12 l6">
+                    <i class="mdi mdi-account-outline prefix form-icons"></i>
+                    <input type="text" name="regNo" id="regNo" class="validate" value="{{regNo}}">
+                    <label for="regNo">Registration Number</label>
+                    <span class="helper-text" data-error="Please provide a valid registration number. e.g. MOUAU/13/266603" data-success=""></span>
+                </div>
+                <div class="input-field col s12 l6">
+                    <i class="mdi mdi-account-outline prefix form-icons"></i>
+                    <input type="text" name="department" id="department" class="validate" value="{{department}}">
+                    <label for="department">Department</label>
+                    <span class="helper-text" data-error="Please provide your department." data-success=""></span>
+                </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="mdi mdi-email-outline prefix form-icons"></i>
+                    <i class="mdi mdi-email prefix form-icons"></i>
                     <input type="email" name="email" id="email" class="validate" value="{{email}}">
                     <label for="email">Email</label>
-                    <span class="helper-text" data-error="Please provide a valid email address" data-success="">e.g. dominic@example.com</span>
+                    <span class="helper-text" data-error="Please provide a valid email. e.g. john@doe.com" data-success="">e.g. john@doe.com</span>
                 </div>
             </div>
             <div class="row">

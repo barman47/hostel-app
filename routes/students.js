@@ -4,6 +4,7 @@ const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 let Student = require('../models/student');
+let Payment = require('../models/payment');
 let MaleStudent = require('../models/maleStudent');
 let FemaleStudent = require('../models/femaleStudent');
 
@@ -21,6 +22,8 @@ router.post('/register', (req, res) => {
         firstName: body.firstName,
         lastName: body.lastName,
         email: body.email,
+        regNo: body.regNo,
+        department: body.department,
         password: body.password,
         confirmPassword: body.confirmPassword,
         gender: body.gender
@@ -28,6 +31,8 @@ router.post('/register', (req, res) => {
 
     req.checkBody('firstName', 'First Name is required').notEmpty();
     req.checkBody('lastName', 'Last Name is required').notEmpty();
+    req.checkBody('regNo', 'Registration number is required').notEmpty();
+    req.checkBody('department', 'Department is required').notEmpty();
     req.checkBody('email', 'Invalid Email Address').isEmail();
     req.checkBody('password', 'Password is required').notEmpty().isLength({min: 8});
     req.checkBody('confirmPassword', 'Passwords do not match!').equals(newStudent.password);
@@ -36,13 +41,15 @@ router.post('/register', (req, res) => {
     let errors = req.validationErrors();
 
     if (errors) {
-        res.render('register', {
+        res.render('signup', {
             title: 'Sign up',
             style: '/css/signup.css',
             script: '/js/signup.js',
             errors: errors,
             firstName: newStudent.firstName,
             lastName: newStudent.lastName,
+            regNo: newStudent.regNo,
+            department: newStudent.department,
             email: newStudent.email,
             password: newStudent.password,
             confirmPassword: newStudent.confirmPassword,
@@ -52,12 +59,14 @@ router.post('/register', (req, res) => {
         let student = new Student({
             firstName: newStudent.firstName,
             lastName: newStudent.lastName,
+            regNo: newStudent.regNo,
+            department: newStudent.department,
             email: newStudent.email,
             password: newStudent.password,
             gender: newStudent.gender
         });
 
-        Student.findOne({email: student.email}, (err, foundStudent) => {
+        Student.findOne({regNo: student.regNo, email: student.email}, (err, foundStudent) => {
             if (err) {
                 return console.log(err);
             }
@@ -66,9 +75,11 @@ router.post('/register', (req, res) => {
                     title: 'Student Sign up',
                     style: '/css/signup.css',
                     script: '/js/signup.js',
-                    error: 'Email already exists!',
+                    error: 'Student already exists!',
                     firstName: newStudent.firstName,
                     lastName: newStudent.lastName,
+                    regNo: newStudent.regNo,
+                    department: newStudent.department,
                     email: newStudent.email,
                     studentname: newStudent.studentname,
                     password: newStudent.password,
@@ -123,7 +134,7 @@ router.post('/login', (req, res, next) => {
         } else {
             req.logIn(student, (err) => {
                 let id = student._id;
-                id = mongoose.Types.ObjectId(id); 
+                id = mongoose.Types.ObjectId(id);
                 res.redirect(`/students/dashboard/${id}`);
             });
         }
@@ -139,30 +150,124 @@ router.get('/dashboard/:id', (req, res) => {
                 title: `${student.firstName} ${student.lastName} - Dashboard`,
                 style: '/css/dashboard.css',
                 script: '/js/dashboard.js',
-                id: student._id
+                student,
+                id: student._id,
+                name: `${student.firstName} ${student.lastName}`
             });
         }
     });
 });
 
-router.get('/bedspace/:id', (req, res) => {
-    res.render('bedspace', {
-        title: 'Bedspace Application',
-        style: '/css/bedspace.css',
-        script: '/js/bedspace.js',
-        id: req.params.id
+router.put('/dashboard/:id', (req, res) => {
+    let data = {
+        name: req.body.name,
+        email: req.body.email,
+        phone: req.body.phone,
+        department: req.body.department,
+        password: req.body.password
+    };
+
+    bcrypt.genSalt(10, (err, salt) => {
+        if (err) {
+            return console.log(err);
+        }
+        bcrypt.hash(data.password, salt, (err, hash) => {
+            if (err) {
+                return console.log(err);
+            }
+            data.password = hash;
+            let query = {_id: req.params.id};
+            Student.findOneAndUpdate(query, {$set: {
+                name: data.name,
+                email: data.email,
+                phone: data.phone,
+                department: data.department,
+                password: data.password
+            }}, {new: true}, (err, updatedStudent) => {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    res.status(200).end();
+                }
+            });
+        });
     });
 });
 
-router.get('/receipt', (req, res) => {
-    res.render('receipt', {
-        title: 'Payment Receipt'
+router.get('/bedspace/:id', (req, res) => {
+    Student.findOne({_id: req.params.id}, (err, student) => {
+        if (err) {
+            return console.log(err);
+        } else {
+            res.render('bedspace', {
+                title: 'Bedspace Application',
+                style: '/css/bedspace.css',
+                script: '/js/bedspace.js',
+                id: student._id,
+                name: `${student.firstName} ${student.lastName}`,
+                phone: student.phone,
+                regNo: student.regNo
+            });
+        }
+    });
+});
+
+router.post('/payment/:id', (req, res) => {
+    let body = req.body;
+    let data = {
+        name: body.name,
+        phone: body.phone,
+        regNo: body.regNo,
+        hostel: body.hostelBlock,
+        cardNumber: body.cardNumber,
+        expiryDate: body.expiryDate,
+        csc: body.csc,
+        password: body.password,
+        amount: 41000
+    };
+    let payment = new Payment({
+        name: data.name,
+        phone: data.phone,
+        regNo: data.regNo,
+        hostel: data.hostel,
+        amount: data.amount
+    });
+    payment.save((err) => {
+        if (err) {
+            return console.log(err);
+        }
+    });
+    Student.findOneAndUpdate({_id: req.params.id}, {$set: {
+        hostel: payment.hostel,
+        amount: payment.amount
+    }}, {new: true}, (err, updatedStudent) => {
+        if (err) {
+            return console.log(err);
+        } else {
+            req.flash('success', 'Payment Successful.');
+            res.redirect(`/students/receipt/${req.params.id}`);
+        }
+    });
+});
+
+router.get('/receipt/:id', (req, res) => {
+    Student.findOne({_id: req.params.id}, (err, student) => {
+        if (err) {
+            return console.log(err);
+        }
+        res.render('receipt', {
+            title: 'Payment Receipt',
+            student,
+            name: `${student.firstName} ${student.lastName}`,
+            regNo: student.regNo,
+            date: new Date().getFullYear(),
+            phone: student.phone
+        });
     });
 });
 
 router.get('/logout', (req, res) => {
     req.logOut();
-    req.flash('success', 'Your are logged out.');
     res.redirect('/');
 });
 

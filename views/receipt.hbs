@@ -3,8 +3,11 @@
         <div>
             <h4 class="center">App Name Payment Receipt</h4>
             <br><br>
-            <span class="left">Name: Uzoanya Dominic</span>
-            <span class="right">Date: 14th April, 2080</span>
+            <span class="left">Name: {{name}}</span>
+            <span class="right">Date: {{date}}</span>
+            <br><br>
+            <span class="left">Registration Number: {{regNo}}</span>
+            <span class="right">Phone: {{phone}}</span>
             <br>
             <p>Sechedule of Payment: Anually.</p>
         </div>
@@ -69,7 +72,7 @@
             <div class="row">
                 <tr>
                     <div class="col s12">
-                        <td><button id="printButton" class="btn waves-effect waves-dark">Print Receipt</button></td>
+                        <td><button id="printButton" class="btn waves-effect waves-dark" data-id="{{student._id}}">Print Receipt</button></td>
                     </div>
                 </tr>
             </div>
@@ -82,6 +85,8 @@
         printButton.style.visibility = 'hidden';
         window.print();
         printButton.style.visibility = 'visible';
+        const id = event.target.dataset.id
+        window.location.href = `/students/dashboard/${id}`;
     }
     printButton.addEventListener('click', printPage);
 </script>

@@ -3,6 +3,8 @@ $(document).ready(function () {
     var inputs = [
         form.firstName,
         form.lastName,
+        form.regNo,
+        form.department,
         form.email,
         form.password,
         form.confirmPassword
@@ -10,6 +12,8 @@ $(document).ready(function () {
 
     var submitButton = document.querySelector('button');
 
+    var regNoRegExp = /^MOUAU\/[0-9]{1,2}\/[0-9]{1,5}$/i;
+    var deptRegExp = /^[\w .-]{2,}$/i;
     var emailRegExp = /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;
     var passwordRegExp = /^[\w@-]{8,20}$/;
 
@@ -33,6 +37,52 @@ $(document).ready(function () {
     }
 
     function checkInputs () {
+        form.regNo.addEventListener('keyup', function (event) {
+            if (!regNoRegExp.test(event.target.value)) {
+                event.target.classList.add('invalid');
+                event.target.classList.remove('valid');
+            } else {
+                event.target.classList.add('valid');
+                event.target.classList.remove('invalid');
+            }
+        }, false);
+    
+        form.regNo.addEventListener('focusout', function (event) {
+            if (!regNoRegExp.test(event.target.value)) {
+                event.target.classList.add('invalid');
+                event.target.classList.remove('valid');
+                event.target.focus();
+                M.toast({
+                    html: 'Please provide a valid Registration Number to continue'
+                });
+            } else {
+                event.target.classList.add('valid');
+                event.target.classList.remove('invalid');
+            }
+        }, false);
+        form.department.addEventListener('keyup', function (event) {
+            if (!deptRegExp.test(event.target.value)) {
+                event.target.classList.add('invalid');
+                event.target.classList.remove('valid');
+            } else {
+                event.target.classList.add('valid');
+                event.target.classList.remove('invalid');
+            }
+        }, false);
+    
+        form.department.addEventListener('focusout', function (event) {
+            if (!deptRegExp.test(event.target.value)) {
+                event.target.classList.add('invalid');
+                event.target.classList.remove('valid');
+                event.target.focus();
+                M.toast({
+                    html: 'Please provide your department to continue'
+                });
+            } else {
+                event.target.classList.add('valid');
+                event.target.classList.remove('invalid');
+            }
+        }, false);
         form.email.addEventListener('keyup', function (event) {
             if (!emailRegExp.test(event.target.value)) {
                 event.target.classList.add('invalid');

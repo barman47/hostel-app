@@ -27,6 +27,11 @@ form h4 {
     color: #26a69a;
 }
 
+a:hover {
+    color: #26a69a;
+    text-decoration: underline;
+}
+
 button {
     width: 100%;
     /* border: 2px solid #388e3c !important;

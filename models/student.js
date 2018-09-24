@@ -21,15 +21,26 @@ let StudentSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    level: {
+    hostel: {
         type: String
     },
-    college: {
+    department: {
+        type: String,
+        required: true
+    },
+    regNo: {
+        type: String,
+        required: true
+    },
+    hostel: {
         type: String
     },
-    roomNumber: {
+    amount: {
         type: Number
     },
+    phone: {
+        type: String
+    }
 });
 
 let Student = module.exports = mongoose.model('Student', StudentSchema);

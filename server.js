@@ -35,8 +35,7 @@ conn.on('error', (err) => {
 const students = require('./routes/students');
 var app = express();
 
-
-// app.use(favicon(publicPath + '/img/favicon.png'));
+app.use(favicon(publicPath + '/img/favicon.png'));
 app.use(express.static(publicPath));
 app.engine('.hbs', exphbs({
     extname: '.hbs',

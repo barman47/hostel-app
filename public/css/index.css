@@ -61,6 +61,12 @@ body {
     transition: all 1s;
 }
 
+.logo {
+    max-width: 200px;
+    max-height: 200px;
+    background: whitesmoke;
+}
+
 .content .logo {
     height: 180px;
     width: 180px;
@@ -117,6 +123,7 @@ body {
     .content .logo {
         height: 140px;
         width: 140px;
+        color: #fff;
     }
 
     .grid-3, .grid-2 {

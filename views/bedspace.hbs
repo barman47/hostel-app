@@ -5,7 +5,7 @@
                 <a href="#" class="brand-logo left">Logo</a>
                 <ul id="nav-mobile" class="right">
                     <li><a href="/"><i class="mdi mdi-home left"></i>Home</a></li>
-                    <li><a href="students/logout"><i class="mdi mdi-logout-variant right"></i>Logout</a></li>
+                    <li><a href="/students/logout"><i class="mdi mdi-logout-variant right"></i>Logout</a></li>
                 </ul>
             </div>
         </nav>
@@ -13,32 +13,32 @@
 </header>
 <main>
     <div id="form-container" class="row container valign-wrapper">
-        <form name="form" class="col s12" action="/students/register" method="POST">
+        <form name="form" class="col s12" action="/students/payment/{{id}}" method="POST">
             <h4 class="center">Bedspace Application</h4>
             <div class="row">
                 <div class="input-field col s12">
                     <i class="mdi mdi-account-outline prefix form-icons"></i>
-                    <input type="text" name="name" id="name" disabled value="{{name}}">
+                    <input type="text" name="name" id="name" value="{{name}}">
                     <label for="name">Name</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12 l6">
                     <i class="mdi mdi-phone prefix form-icons"></i>
-                    <input type="text" name="phone" id="phone" class="validate" value="{{phone}}" autofocus>
+                    <input type="text" name="phone" id="phone" class="validate" value="{{phone}}">
                     <label for="phone">Phone Number</label>
                     <span class="helper-text" data-error="Please provide a valid phone number" data-success="">e.g. 09026525337</span>
                 </div>
                 <div class="input-field col s12 l6">
                     <i class="mdi mdi-numeric prefix form-icons"></i>
-                    <input type="text" name="regNo" id="regNo" class="validate" value="{{regNo}}" autofocus>
+                    <input type="text" name="regNo" id="regNo" class="validate" value="{{regNo}}">
                     <label for="regNo">Registration Number</label>
                     <span class="helper-text" data-error="Please a valid registration number e.g.MOUAU/13/266603" data-success="">e.g. MOUAU/13/26603</span>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <select name="hostelBlock">
+                    <select name="hostelBlock" autofocus>
                         <option value="" disabled selected>Choose Block</option>
                         <option value="Block A">Block A</option>
                         <option value="Block B">Block B</option>
@@ -52,14 +52,15 @@
                 <h6 class="center">Payment Details</h6>
                 <div class="input-field col s12 l7">
                     <i class="mdi mdi-credit-card prefix form-icons"></i>
-                    <input type="text" name="cardNumber" id="cardNumber" value="{{cardNumber}}">
+                    <input type="text" name="cardNumber" id="cardNumber" value="{{cardNumber}}" maxlength="16">
                     <label for="cardNumber">Debit Card Number</label>
+                    <span class="helper-text" data-error="Invalid card number!" data-success=""></span>
                 </div>
                 <div class="input-field col s12 l5">
                     <i class="mdi mdi-calendar prefix form-icons"></i>
                     <input type="text" name="expiryDate" id="expiryDate" class="validate" value="{{expiryDate}}">
                     <label for="expiryDate">Expiry Date</label>
-                    <span class="helper-text" data-error="Please a valid registration number e.g.MOUAU/13/266603" data-success="">e.g. MOUAU/13/26603</span>
+                    <span class="helper-text" data-error="Please a valid date. Format MM/YY" data-success="">MM/YY</span>
                 </div>
             </div>
             <div class="row">
