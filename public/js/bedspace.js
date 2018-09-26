@@ -1,5 +1,6 @@
 $(document).ready(function(){
-$('select').formSelect();
+    $('.sidenav').sidenav();
+    $('select').formSelect();
     var form = document.form;
     var inputs = [
     	form.name,
@@ -9,7 +10,7 @@ $('select').formSelect();
 		form.cardNumber,
 		form.expiryDate,
 		form.csc,
-		form.password
+		form.cardName
     ]
     
     // $('#cardNumber').keyup(function() {
@@ -21,7 +22,6 @@ $('select').formSelect();
     //   });
 
 	const nameRegExp = /^[\w ]{2,}$/i;
-    const passwordRegExp = /^[\w@-]{8,20}$/;
 	const phoneRegExp = /^\d{11}$/;
 	const regNoRegExp = /^MOUAU\/[0-9]{1,2}\/[0-9]{1,5}$/i;
 	// const visaRegEx = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
@@ -195,8 +195,8 @@ $('select').formSelect();
             }
         }, false);
     
-        form.password.addEventListener('keyup', function (event) {
-            if (!passwordRegExp.test(event.target.value)) {
+        form.cardName.addEventListener('keyup', function (event) {
+            if (!nameRegExp.test(event.target.value)) {
                 event.target.classList.add('invalid');
                 event.target.classList.remove('valid');
             } else {
@@ -205,8 +205,8 @@ $('select').formSelect();
             }
         }, false);
     
-        form.password.addEventListener('focusout', function (event) {
-            if (!passwordRegExp.test(event.target.value)) {
+        form.cardName.addEventListener('focusout', function (event) {
+            if (!nameRegExp.test(event.target.value)) {
                 event.target.classList.add('invalid');
                 event.target.classList.remove('valid');
                 event.target.focus();

@@ -3,10 +3,13 @@ const router = express.Router();
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
+const moment = require('moment');
 let Student = require('../models/student');
 let Payment = require('../models/payment');
 let MaleStudent = require('../models/maleStudent');
 let FemaleStudent = require('../models/femaleStudent');
+
+let time;
 
 router.get('/register', (req, res) => {
     res.render('signup', {
@@ -222,7 +225,7 @@ router.post('/payment/:id', (req, res) => {
         cardNumber: body.cardNumber,
         expiryDate: body.expiryDate,
         csc: body.csc,
-        password: body.password,
+        cardName: body.cardName,
         amount: 41000
     };
     let payment = new Payment({
@@ -255,12 +258,13 @@ router.get('/receipt/:id', (req, res) => {
         if (err) {
             return console.log(err);
         }
+        time = moment();
         res.render('receipt', {
             title: 'Payment Receipt',
             student,
             name: `${student.firstName} ${student.lastName}`,
             regNo: student.regNo,
-            date: new Date().getFullYear(),
+            date: time.format('MMMM Do, YYYY.'),
             phone: student.phone
         });
     });

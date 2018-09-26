@@ -7,6 +7,20 @@ nav li  {
     padding-right: 15px !important;
 }
 
+.mdi-menu:hover {
+    color: #ffffff !important;
+}
+
+#logoLink:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.sidenav a:hover {
+    color: #fff !important;
+    background-color: #26a69a !important;
+}
+
 #form-container {
     display: flex;
     align-self: center;
@@ -25,6 +39,11 @@ form {
 
 form h4 {
     color: #26a69a;
+}
+
+li a:hover {
+    text-decoration: none;
+    color: #ffffff;
 }
 
 a:hover {

@@ -1,14 +1,20 @@
 <header>
     <nav>
         <div class="nav-wrapper container">
-            <a href="#" class="brand-logo left">Logo</a>
-            <ul id="nav-mobile" class="right">
+            <a id="logoLink" href="/students/dahsboard/{{id}}" class="brand-logo"><i class="mdi mdi-sofa mdi-48px left"></i>Accomify</a>
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="mdi mdi-menu"></i></a>
+            <ul class="right hide-on-med-and-down">
                 <li><a href="/"><i class="mdi mdi-home left"></i>Home</a></li>
                 <li class="active"><a href=""></a><i class="mdi mdi-view-dashboard right"></i>My Dashboard</a></li>
                 <li><a href="/students/logout"><i class="mdi mdi-logout-variant right"></i>Logout</a></li>
             </ul>
         </div>
     </nav>
+    <ul class="sidenav" id="nav-mobile">
+        <li><a href="/"><i class="mdi mdi-home"></i>Home</a></li>
+        <li class="active"><a href="/students/dahsboard/{{id}}"><i class="mdi mdi-view-dashboard"></i>My Dashboard</a></li>
+        <li><a href="/students/logout"><i class="mdi mdi-logout-variant"></i>Logout</a></li>
+    </ul>
 </header>
 
 <main>
@@ -63,14 +69,18 @@
 
         <div class="container">
             <h6>Welcome {{name}}</h6>
-            <div class="content">
-                <div class="links">
-                    <i class="mdi mdi-bed-empty main-icons"></i>
-                    <h5><a href="/students/bedspace/{{id}}">Apply for Bedspace</a></h5>
+            <div class="row">
+                <div class="col l6 s12">
+                    <div class="links">
+                        <i class="mdi mdi-bed-empty main-icons"></i>
+                        <h5><a href="/students/bedspace/{{id}}">Apply for Bedspace</a></h5>
+                    </div>
                 </div>
-                <div class="links">
-                    <i class="mdi mdi-account main-icons"></i>
-                    <h5><a class="modal-trigger" href="#profileModal">My Profile</a></h5>
+                <div class="col l6 s12">
+                    <div class="links">
+                        <i class="mdi mdi-account main-icons"></i>
+                        <h5><a class="modal-trigger" href="#profileModal">My Profile</a></h5>
+                    </div>
                 </div>
             </div>
             <hr>

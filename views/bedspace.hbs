@@ -2,14 +2,19 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper container">
-                <a href="#" class="brand-logo left">Logo</a>
-                <ul id="nav-mobile" class="right">
+                <a id="logoLink" href="/students/bedspace/{{id}}" class="brand-logo"><i class="mdi mdi-sofa mdi-48px left"></i>Accomify</a>
+                <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="mdi mdi-menu"></i></a>
+                <ul class="right hide-on-med-and-down">
                     <li><a href="/"><i class="mdi mdi-home left"></i>Home</a></li>
                     <li><a href="/students/logout"><i class="mdi mdi-logout-variant right"></i>Logout</a></li>
                 </ul>
             </div>
         </nav>
     </div>
+    <ul class="sidenav" id="mobile-menu">
+        <li><a href="/"><i class="mdi mdi-home"></i>Home</a></li>
+        <li><a href="/students/logout"><i class="mdi mdi-logout-variant"></i>Logout</a></li>
+    </ul>
 </header>
 <main>
     <div id="form-container" class="row container valign-wrapper">
@@ -54,13 +59,13 @@
                     <i class="mdi mdi-credit-card prefix form-icons"></i>
                     <input type="text" name="cardNumber" id="cardNumber" value="{{cardNumber}}" maxlength="16">
                     <label for="cardNumber">Debit Card Number</label>
-                    <span class="helper-text" data-error="Invalid card number!" data-success=""></span>
+                    <span class="helper-text" data-error="Invalid card number!" data-success="Okay">VISA AND MASTERCARD ONLY</span>
                 </div>
                 <div class="input-field col s12 l5">
                     <i class="mdi mdi-calendar prefix form-icons"></i>
                     <input type="text" name="expiryDate" id="expiryDate" class="validate" value="{{expiryDate}}">
                     <label for="expiryDate">Expiry Date</label>
-                    <span class="helper-text" data-error="Please a valid date. Format MM/YY" data-success="">MM/YY</span>
+                    <span class="helper-text" data-error="Please a valid date. Format MM/YY" data-success="Okay">MM/YY</span>
                 </div>
             </div>
             <div class="row">
@@ -68,13 +73,13 @@
                     <i class="mdi mdi-security-close prefix form-icons"></i>
                     <input type="text" name="csc" id="csc" class="validate" value="{{csc}}">
                     <label for="csc">CSC</label>
-                    <span class="helper-text" data-error="Please provide your csc" data-success="">The three-digit code behind your card</span>
+                    <span class="helper-text" data-error="Please provide your csc" data-success="Okay">The three-digit code behind your card</span>
                 </div>
                 <div class="input-field col s12 l7">
-                    <i class="mdi mdi-lock-outline prefix form-icons"></i>
-                    <input type="password" name="password" id="password" class="validate" value="{{password}}">
-                    <label for="password">Password</label>
-                    <span class="helper-text" data-error="Please provide your password" data-success="">Provide your password to authorize payment</span>
+                    <i class="mdi mdi-alphabetical prefix form-icons"></i>
+                    <input type="text" name="cardName" id="cardName" class="validate" value="{{cardName}}">
+                    <label for="cardName">Name on Card</label>
+                    <span class="helper-text" data-error="Invalid card name." data-success="">Enter name on credit card</span>
                 </div>
             </div>
             <div class="row">

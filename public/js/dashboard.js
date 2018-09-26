@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $('.sidenav').sidenav();
     $('.modal').modal();
     $('select').formSelect();
     var inputs = document.querySelectorAll('input');
