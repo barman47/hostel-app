@@ -7,7 +7,7 @@ const moment = require('moment');
 let Student = require('../models/student');
 let Payment = require('../models/payment');
 let MaleStudent = require('../models/maleStudent');
-let FemaleStudent = require('../models/femaleStudent');
+let FemaleHostel = require('../models/femaleHostel');
 
 let time;
 
@@ -240,6 +240,12 @@ router.post('/payment/:id', (req, res) => {
             return console.log(err);
         }
     });
+
+    let femaleHostel = new FemaleHostel({
+        
+    });
+
+
     Student.findOneAndUpdate({_id: req.params.id}, {$set: {
         hostel: payment.hostel,
         amount: payment.amount
