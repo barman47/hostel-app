@@ -13,7 +13,7 @@ let PaymentSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    hostel: {
+    room: {
         type: String,
         required: true
     },

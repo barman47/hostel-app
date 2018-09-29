@@ -14,8 +14,7 @@ h6 {
     box-shadow: 1px 1px 1px #c5c5c5;
     padding: 10px;
     margin-top: 80px;
-    /* background-color: #22958a; */
-    /* color: #f1f1f1; */
+    margin-bottom: 50px;
     color: #333;
 }
 
@@ -24,10 +23,6 @@ h6 {
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 8em;
     grid-auto-rows: minmax(350px, auto);
-    /* align-items: center; */
-    /*border-radius: 10px;
-    box-shadow: 2px 2px 2px #c5c5c5;
-    margin-right: 10px; */
 }
 
 .links {
@@ -61,33 +56,6 @@ h5 a:active {
     font-size: 80px;
     color: #26a69a;
 }
-
-/* .modal {
-    padding: 0;
-}
-
-.modal-content {
-    padding: 0 !important;
-}
-
-.modal-header {
-    position: fixed;
-    top: 0;
-    background-color: #26a69a;
-    color: #ffffff;
-    width: 100%;
-    text-align: center;
-    padding: 15px;
-    z-index: 99;
-}
-
-.content {
-    margin-top: 40px;
-     margin-bottom: 40px;
-    border: 2px solid blue;
-    padding: 35px 60px;
-} 
-*/
 
 .modal-footer {
     text-align: center !important;

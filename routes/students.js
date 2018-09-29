@@ -4,9 +4,10 @@ const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const moment = require('moment');
+const fs = require('fs');
 let Student = require('../models/student');
 let Payment = require('../models/payment');
-let MaleStudent = require('../models/maleStudent');
+let MaleHostel = require('../models/maleHostel');
 let FemaleHostel = require('../models/femaleHostel');
 
 let time;
@@ -209,7 +210,8 @@ router.get('/bedspace/:id', (req, res) => {
                 id: student._id,
                 name: `${student.firstName} ${student.lastName}`,
                 phone: student.phone,
-                regNo: student.regNo
+                regNo: student.regNo,
+                gender: student.gender
             });
         }
     });
@@ -221,6 +223,7 @@ router.post('/payment/:id', (req, res) => {
         name: body.name,
         phone: body.phone,
         regNo: body.regNo,
+        gender: body.gender,
         hostel: body.hostelBlock,
         cardNumber: body.cardNumber,
         expiryDate: body.expiryDate,
@@ -228,35 +231,391 @@ router.post('/payment/:id', (req, res) => {
         cardName: body.cardName,
         amount: 41000
     };
-    let payment = new Payment({
-        name: data.name,
-        phone: data.phone,
-        regNo: data.regNo,
-        hostel: data.hostel,
-        amount: data.amount
-    });
-    payment.save((err) => {
-        if (err) {
-            return console.log(err);
-        }
-    });
 
+    let maleHostel = new MaleHostel({
+        hostel: [{
+            studentName: data.name,
+            blockName: data.hostel,
+            regNo: data.regNo
+        }]
+    });
     let femaleHostel = new FemaleHostel({
+        hostel: [{
+            studentName: data.name,
+            blockName: data.hostel,
+            regNo: data.regNo
+        }]
+    });
+    let room;
+
+    if (data.gender === 'male') {
+        room = fs.readFileSync('./utils/maleHostel.json', 'utf8');
+        room  = JSON.parse(room);
         
-    });
-
-
-    Student.findOneAndUpdate({_id: req.params.id}, {$set: {
-        hostel: payment.hostel,
-        amount: payment.amount
-    }}, {new: true}, (err, updatedStudent) => {
-        if (err) {
-            return console.log(err);
+        if (data.hostel === 'blockA' && room.blockA < 10) {
+            maleHostel.hostel[0].blockName = 'blockA';
+            room.blockA += 1;
+            maleHostel.hostel[0].roomNumber = room.blockA;
+            fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('Database File updated sucessfully ', room);
+            });
+            maleHostel.save((err) => {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    Student.findOneAndUpdate({_id: req.params.id}, {$set: {
+                        room: `${maleHostel.hostel[0].blockName.toUpperCase()}: Room ${maleHostel.hostel[0].roomNumber}`,
+                        amount: data.amount
+                    }}, {new: true}, (err, updatedStudent) => {
+                        if (err) {
+                            return console.log(err);
+                        } else {
+                            let payment = new Payment({
+                                name: `${updatedStudent.firstName} ${updatedStudent.firstName}`,
+                                phone: `${updatedStudent.phone}`,
+                                regNo: `${updatedStudent.regNo}`,
+                                room: `${updatedStudent.room}`,
+                                amount: data.amount
+                            });
+                            payment.save((err) => {
+                                if (err) {
+                                    return console.log(err);
+                                }
+                            });
+                            req.flash('success', 'Payment Successful.');
+                            res.redirect(`/students/receipt/${req.params.id}`);
+                        }
+                    });
+                }
+            });
+        } else if (data.hostel === 'blockB' && room.blockB < 10) {
+            maleHostel.hostel[0].blockName = 'blockB';
+            room.blockB += 1;
+            maleHostel.hostel[0].roomNumber = room.blockB;
+            fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('Database File updated sucessfully ', room);
+            });
+            maleHostel.save((err) => {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    Student.findOneAndUpdate({_id: req.params.id}, {$set: {
+                        room: `${maleHostel.hostel[0].blockName.toUpperCase()}: Room ${maleHostel.hostel[0].roomNumber}`,
+                        amount: data.amount
+                    }}, {new: true}, (err, updatedStudent) => {
+                        if (err) {
+                            return console.log(err);
+                        } else {
+                            let payment = new Payment({
+                                name: `${updatedStudent.firstName} ${updatedStudent.firstName}`,
+                                phone: `${updatedStudent.phone}`,
+                                regNo: `${updatedStudent.regNo}`,
+                                room: `${updatedStudent.room}`,
+                                amount: data.amount
+                            });
+                            payment.save((err) => {
+                                if (err) {
+                                    return console.log(err);
+                                }
+                            });
+                            req.flash('success', 'Payment Successful.');
+                            res.redirect(`/students/receipt/${req.params.id}`);
+                        }
+                    });
+                }
+            });
+        } else if (data.hostel === 'blockC' && room.blockC < 10) {
+            maleHostel.hostel[0].blockName = 'blockC';
+            room.blockC += 1;
+            maleHostel.hostel[0].roomNumber = room.blockC;
+            fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('Database File updated sucessfully ', room);
+            });
+            maleHostel.save((err) => {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    Student.findOneAndUpdate({_id: req.params.id}, {$set: {
+                        room: `${maleHostel.hostel[0].blockName.toUpperCase()}: Room ${maleHostel.hostel[0].roomNumber}`,
+                        amount: data.amount
+                    }}, {new: true}, (err, updatedStudent) => {
+                        if (err) {
+                            return console.log(err);
+                        } else {
+                            let payment = new Payment({
+                                name: `${updatedStudent.firstName} ${updatedStudent.firstName}`,
+                                phone: `${updatedStudent.phone}`,
+                                regNo: `${updatedStudent.regNo}`,
+                                room: `${updatedStudent.room}`,
+                                amount: data.amount
+                            });
+                            payment.save((err) => {
+                                if (err) {
+                                    return console.log(err);
+                                }
+                            });
+                            req.flash('success', 'Payment Successful.');
+                            res.redirect(`/students/receipt/${req.params.id}`);
+                        }
+                    });
+                }
+            });
+        } else if (data.hostel === 'blockD' && room.blockD < 10) {
+            maleHostel.hostel[0].blockName = 'blockD';
+            room.blockD += 1;
+            maleHostel.hostel[0].roomNumber = room.blockD;
+            fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('Database File updated sucessfully ', room);
+            });
+            maleHostel.save((err) => {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    Student.findOneAndUpdate({_id: req.params.id}, {$set: {
+                        room: `${maleHostel.hostel[0].blockName.toUpperCase()}: Room ${maleHostel.hostel[0].roomNumber}`,
+                        amount: data.amount
+                    }}, {new: true}, (err, updatedStudent) => {
+                        if (err) {
+                            return console.log(err);
+                        } else {
+                            let payment = new Payment({
+                                name: `${updatedStudent.firstName} ${updatedStudent.firstName}`,
+                                phone: `${updatedStudent.phone}`,
+                                regNo: `${updatedStudent.regNo}`,
+                                room: `${updatedStudent.room}`,
+                                amount: data.amount
+                            });
+                            payment.save((err) => {
+                                if (err) {
+                                    return console.log(err);
+                                }
+                            });
+                            req.flash('success', 'Payment Successful.');
+                            res.redirect(`/students/receipt/${req.params.id}`);
+                        }
+                    });
+                }
+            });
         } else {
-            req.flash('success', 'Payment Successful.');
-            res.redirect(`/students/receipt/${req.params.id}`);
+            Student.findOne({_id: req.params.id}, (err, student) => {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    return res.render('bedspace', {
+                        title: 'Bedspace Application',
+                        style: '/css/bedspace.css',
+                        script: '/js/bedspace.js',
+                        id: student._id,
+                        name: `${student.firstName} ${student.lastName}`,
+                        phone: student.phone,
+                        regNo: student.regNo,
+                        gender: student.gender,
+                        cardNumber: data.cardNumber,
+                        expiryDate: data.expiryDate,
+                        csc: data.csc,
+                        cardName: data.cardName,
+                        noSpace: `${data.hostel.toUpperCase()} is Completely Occupied.`
+                    });
+                }
+            });
         }
-    });
+    }
+    if (data.gender === 'female') {
+        room = fs.readFileSync('./utils/femaleHostel.json', 'utf8');
+        room  = JSON.parse(room);
+        if (data.hostel === 'blockA' && room.blockA < 10) {
+            femaleHostel.hostel[0].blockName = 'blockA';
+            room.blockA += 1;
+            femaleHostel.hostel[0].roomNumber = room.blockA;
+            fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('Database File updated sucessfully ', room);
+            });
+            femaleHostel.save((err) => {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    Student.findOneAndUpdate({_id: req.params.id}, {$set: {
+                        room: `${femaleHostel.hostel[0].blockName.toUpperCase()}: Room ${femaleHostel.hostel[0].roomNumber}`,
+                        amount: data.amount
+                    }}, {new: true}, (err, updatedStudent) => {
+                        if (err) {
+                            return console.log(err);
+                        } else {
+                            let payment = new Payment({
+                                name: `${updatedStudent.firstName} ${updatedStudent.firstName}`,
+                                phone: `${updatedStudent.phone}`,
+                                regNo: `${updatedStudent.regNo}`,
+                                room: `${updatedStudent.room}`,
+                                amount: data.amount
+                            });
+                            payment.save((err) => {
+                                if (err) {
+                                    return console.log(err);
+                                }
+                            });
+                            req.flash('success', 'Payment Successful.');
+                            res.redirect(`/students/receipt/${req.params.id}`);
+                        }
+                    });
+                }
+            });        
+        } else if (data.hostel === 'blockB' && room.blockB < 10) {
+            femaleHostel.hostel[0].blockName = 'blockB';
+            room.blockB1;
+            femaleHostel.hostel[0].roomNumber = room.blockB;
+            fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('Database File updated sucessfully ', room);
+            });
+            femaleHostel.save((err) => {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    Student.findOneAndUpdate({_id: req.params.id}, {$set: {
+                        room: `${femaleHostel.hostel[0].blockName.toUpperCase()}: Room ${femaleHostel.hostel[0].roomNumber}`,
+                        amount: data.amount
+                    }}, {new: true}, (err, updatedStudent) => {
+                        if (err) {
+                            return console.log(err);
+                        } else {
+                            let payment = new Payment({
+                                name: `${updatedStudent.firstName} ${updatedStudent.firstName}`,
+                                phone: `${updatedStudent.phone}`,
+                                regNo: `${updatedStudent.regNo}`,
+                                room: `${updatedStudent.room}`,
+                                amount: data.amount
+                            });
+                            payment.save((err) => {
+                                if (err) {
+                                    return console.log(err);
+                                }
+                            });
+                            req.flash('success', 'Payment Successful.');
+                            res.redirect(`/students/receipt/${req.params.id}`);
+                        }
+                    });
+                }
+            });        
+        } else if (data.hostel === 'blockC' && room.blockC < 10) {
+            femaleHostel.hostel[0].blockName = 'blockC';
+            room.blockC += 1;
+            femaleHostel.hostel[0].roomNumber = room.blockC;
+            console.log('room', room);
+            fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('Database File updated sucessfully ', room);
+            });
+            femaleHostel.save((err) => {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    Student.findOneAndUpdate({_id: req.params.id}, {$set: {
+                        room: `${femaleHostel.hostel[0].blockName.toUpperCase()}: Room ${femaleHostel.hostel[0].roomNumber}`,
+                        amount: data.amount
+                    }}, {new: true}, (err, updatedStudent) => {
+                        if (err) {
+                            return console.log(err);
+                        } else {
+                            let payment = new Payment({
+                                name: `${updatedStudent.firstName} ${updatedStudent.firstName}`,
+                                phone: `${updatedStudent.phone}`,
+                                regNo: `${updatedStudent.regNo}`,
+                                room: `${updatedStudent.room}`,
+                                amount: data.amount
+                            });
+                            payment.save((err) => {
+                                if (err) {
+                                    return console.log(err);
+                                }
+                            });
+                            req.flash('success', 'Payment Successful.');
+                            res.redirect(`/students/receipt/${req.params.id}`);
+                        }
+                    });
+                }
+            });        
+        } else if (data.hostel === 'blockD' && room.blockD < 10) {
+            femaleHostel.hostel[0].blockName = 'blockD';
+            room.blockD += 1;
+            femaleHostel.hostel[0].roomNumber = room.blockD;
+            fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('Database File updated sucessfully ', room);
+            });
+            femaleHostel.save((err) => {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    Student.findOneAndUpdate({_id: req.params.id}, {$set: {
+                        room: `${femaleHostel.hostel[0].blockName.toUpperCase()}: Room ${femaleHostel.hostel[0].roomNumber}`,
+                        amount: data.amount
+                    }}, {new: true}, (err, updatedStudent) => {
+                        if (err) {
+                            return console.log(err);
+                        } else {
+                            let payment = new Payment({
+                                name: `${updatedStudent.firstName} ${updatedStudent.firstName}`,
+                                phone: `${updatedStudent.phone}`,
+                                regNo: `${updatedStudent.regNo}`,
+                                room: `${updatedStudent.room}`,
+                                amount: data.amount
+                            });
+                            payment.save((err) => {
+                                if (err) {
+                                    return console.log(err);
+                                }
+                            });
+                            req.flash('success', 'Payment Successful.');
+                            res.redirect(`/students/receipt/${req.params.id}`);
+                        }
+                    });
+                }
+            });        
+        } else {
+            Student.findOne({_id: req.params.id}, (err, student) => {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    return res.render('bedspace', {
+                        title: 'Bedspace Application',
+                        style: '/css/bedspace.css',
+                        script: '/js/bedspace.js',
+                        id: student._id,
+                        name: `${student.firstName} ${student.lastName}`,
+                        phone: student.phone,
+                        regNo: student.regNo,
+                        gender: student.gender,
+                        cardNumber: data.cardNumber,
+                        expiryDate: data.expiryDate,
+                        csc: data.csc,
+                        cardName: data.cardName,
+                        noSpace: `${data.hostel.toUpperCase()} is Completely Occupied.`
+                    });
+                }
+            });
+        } 
+    }
 });
 
 router.get('/receipt/:id', (req, res) => {

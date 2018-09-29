@@ -11,8 +11,7 @@ let blockSchema = mongoose.Schema({
         required: true
     },
     roomNumber: {
-        type: Number,
-        required: true
+        type: Number
     },
     availableRooms: {
         type: Number,
@@ -23,8 +22,8 @@ let blockSchema = mongoose.Schema({
     }
 });
 
-let FemaleHostelSchema = mongoose.Schema({
+let MaleHostelSchema = mongoose.Schema({
     hostel: [blockSchema]
 });
 
-let FemaleHostel = module.exports = mongoose.model('FemaleHostel', FemaleHostelSchema);
+let MaleHostel = module.exports = mongoose.model('MaleHostel', MaleHostelSchema);

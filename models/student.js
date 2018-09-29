@@ -21,8 +21,9 @@ let StudentSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    hostel: {
-        type: String
+    room: {
+        type: String,
+        default: null
     },
     department: {
         type: String,
@@ -31,9 +32,6 @@ let StudentSchema = mongoose.Schema({
     regNo: {
         type: String,
         required: true
-    },
-    hostel: {
-        type: String
     },
     amount: {
         type: Number
