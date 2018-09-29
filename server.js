@@ -10,8 +10,6 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const moment = require('moment');
 
-// const User = require('./models/user');
-
 const path = require('path');
 const publicPath = path.join(__dirname, 'public');
 const config = require('./config/database');
