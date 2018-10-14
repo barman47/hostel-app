@@ -1,0 +1,8 @@
+{
+    "compEdu": "Computer Science Education", 
+    "chemEdu": "Chemistry Education", 
+    "phyEdu": "Physics Education", 
+    "mathsEdu": "Mathematics Education", 
+    "IT": "Industrial Technology", 
+    "libInfo": "Library and Information Science"
+}

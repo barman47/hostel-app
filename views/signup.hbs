@@ -7,9 +7,10 @@
     {{/if}}
     <p class="red-text center">{{error}}</p>
     <div id="form-container" class="row container valign-wrapper">
-        <form name="form" class="col s12" action="/students/register" method="POST">
+        <form name="signupForm" id="signupForm" class="col s12" action="/students/register" method="POST">
             <h4 class="center">Student Sign Up</h4>
             <div class="row">
+                <p id="first"></p>
                 <div class="input-field col s12 l6">
                     <i class="mdi mdi-account-outline prefix form-icons"></i>
                     <input type="text" name="firstName" id="firstName" class="validate" value="{{firstName}}" autofocus>
@@ -28,11 +29,32 @@
                     <label for="regNo">Registration Number</label>
                     <span class="helper-text" data-error="Please provide a valid registration number. e.g. MOUAU/13/266603" data-success=""></span>
                 </div>
-                <div class="input-field col s12 l6">
-                    <i class="mdi mdi-account-outline prefix form-icons"></i>
-                    <input type="text" name="department" id="department" class="validate" value="{{department}}">
-                    <label for="department">Department</label>
+                <div class="input-field col s12 l6" id="college-div">
+                    <i class="mdi mdi-bank prefix form-icons"></i>
+                    <select name="college" id="college">
+                        <option value="" disabled selected>Choose your College</option>
+                        <option value="COLPAS">COLPAS</option>
+                        <option value="COLMAS">COLMAS</option>
+                        <option value="CAFST">CAFST</option>
+                        <option value="CEET">CEET</option>
+                        <option value="CCSS">CCSS</option>
+                        <option value="VET">VET</option>
+                        <option value="CASE">CASE</option>
+                        <option value="CNREM">CNREM</option>
+                        <option value="CAERSE">CAERSE</option>
+                        <option value="CASAP">CASAP</option>
+                    </select>
+                    <label for="college">Select College</label>
                     <span class="helper-text" data-error="Please provide your department." data-success=""></span>
+                </div>
+            </div>
+            <div id="departmentRow" class="row">    
+                <div class="col s12 input-field" id="department-div">
+                    <i class="mdi mdi-school prefix form-icons"></i>
+                    <select name="department" id="department">
+                        <option value="" disabled selected>Choose your department</option>
+                    </select>
+                    <label for="department">Select Department</label>
                 </div>
             </div>
             <div class="row">
@@ -82,3 +104,11 @@
             </div>
         </form>
     </div>
+
+    {{!-- <select id='department' name='department'>
+        <option value='' disabled selected>Choose your department</option>
+        <option value='Computer Science'>Computer Science</option>
+        <option value='Chemistry'>Chemistry</option>
+        <option value='Physics'>Physics</option>
+        <option value='Mathematics'>Mathematics</option>
+    </select>" --}}

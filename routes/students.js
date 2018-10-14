@@ -83,6 +83,7 @@ router.post('/register', (req, res) => {
                     firstName: newStudent.firstName,
                     lastName: newStudent.lastName,
                     regNo: newStudent.regNo,
+                    college: newStudent.college,
                     department: newStudent.department,
                     email: newStudent.email,
                     studentname: newStudent.studentname,

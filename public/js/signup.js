@@ -1,5 +1,28 @@
 $(document).ready(function () {
-    var form = document.form;
+    $('select').formSelect();
+    var form = document.signupForm;
+    const college = form.college;
+
+    function loadDepartment (college) {
+        $('#department option:not(:first)').remove();
+        var url = `/colleges/${college.toLowerCase()}.json`;
+        $.getJSON(url, function (data) {
+            var departments = [];
+            var department = form.department;
+            for (var prop in data) {
+                departments.push(data[prop]);
+                var dept = document.createElement('option');
+                dept.innerHTML = data[prop];
+                department.appendChild(dept);
+                $('select').formSelect();
+            } 
+        });
+    }
+
+    college.addEventListener('change', function (event) {
+        loadDepartment(event.target.value)
+    });
+
     var inputs = [
         form.firstName,
         form.lastName,
@@ -9,8 +32,6 @@ $(document).ready(function () {
         form.password,
         form.confirmPassword
     ];
-
-    var submitButton = document.querySelector('button');
 
     var regNoRegExp = /^MOUAU\/[0-9]{1,2}\/[0-9]{1,5}$/i;
     var deptRegExp = /^[\w .-]{2,}$/i;

@@ -25,6 +25,10 @@ let StudentSchema = mongoose.Schema({
         type: String,
         default: null
     },
+    college: {
+        type: String,
+        required: true
+    },
     department: {
         type: String,
         required: true
