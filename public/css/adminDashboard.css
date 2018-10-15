@@ -1,0 +1,37 @@
+ body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+a {
+    float: right;
+    /* background-color: yellow; */
+    padding: 20px;
+    color: #26a69a;
+    font-size: 24px;
+}
+
+a:visited {
+    color:#26a69a;
+}
+
+a:hover {
+    color: #039be5;
+}
+
+a:active {
+    color: #f00;
+}
+
+thead {
+    color: #26a69a;
+} 
+
+.name {
+    max-width: 200px;
+}

@@ -31,6 +31,7 @@ conn.on('error', (err) => {
 });
 
 const students = require('./routes/students');
+const admins = require('./routes/admins');
 var app = express();
 
 app.use(favicon(publicPath + '/img/favicon.png'));
@@ -81,11 +82,13 @@ app.use((req, res, next) => {
 });
 
 app.use('/students', students);
+app.use('/admins', admins);
 
 app.get('/', (req, res) => {
     res.render('index', {
         title: 'Home',
-        style: '/css/index.css'
+        style: '/css/index.css',
+        script: '/js/index.js' 
     });
 });
 

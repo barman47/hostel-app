@@ -5,24 +5,13 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* .showcase::after {
-    content: '';
-    height: 100vh;
-    width: 100%;
-    background-image: url(/img/background.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: block;
-    filter: blur(10px);
-    -webkit-filter: blur(10px);
-    transition: all 1s;
+#adminLoginModal {
+    width: 50%;
 }
 
-.showcase:hover::after {
-    filter: blur(0px);
-    -webkit-filter: blur(0px);
-} */
+h4, .prefix {
+    color: #444;
+}
 
 .showcase::after {
     content: '';
@@ -43,10 +32,28 @@ body {
     -webkit-filter: blur(5px);
 }
 
-/* .showcase:hover .content {
-    filter: blur(1px);
-    -webkit-filter: blur(1px);
-} */
+#adminDiv {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 99;
+    background-color: #26a69a;
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px gray;
+}
+
+#adminDiv:hover {
+    background-color: #43bbb0;
+}
+
+#adminDiv a {
+    color: #fff;
+}
+
+#adminDiv a:active {
+    color: #f00;
+}
 
 .content {
     position: absolute;

@@ -1,0 +1,44 @@
+<header>
+    <div>
+        <a href="/"><i class="mdi mdi-lock left icon"></i>Logout</a>
+    </div>
+</header>
+<main>
+    <h4 class="center">Welcome Admin</h4>
+    <br><br>
+    <div class="section" id="info">
+        {{#if student}}
+            <table class="responsive-table striped">
+                <thead>
+                    <tr>
+                        <th class="name">Name</th>
+                        <th>Room</th>
+                        <th>Reg Number</th>
+                        <th>College</th>
+                        <th>Department</th>
+                        <th>email</th>
+                        <th>Phone</th>
+                        <th>Gender</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each student}}
+                        <tr>
+                            <td class="name">{{this.firstName}} {{this.lastName}}</td>
+                            <td>{{this.room}}</td>
+                            <td>{{this.regNo}}</td>
+                            <td>{{this.college}}</td>
+                            <td>{{this.department}}</td>
+                            <td>{{this.email}}</td>
+                            <td>{{this.phone}}</td>
+                            <td>{{this.gender}}</td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{/if}}
+    </div>
+</main>
+<footer class="center bg-dark">
+    <p>&copy; Copyright Hostel Application 2018</p>
+</footer>

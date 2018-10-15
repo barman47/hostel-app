@@ -27,6 +27,7 @@ router.post('/register', (req, res) => {
         lastName: body.lastName,
         email: body.email,
         regNo: body.regNo,
+        college: body.college,
         department: body.department,
         password: body.password,
         confirmPassword: body.confirmPassword,
@@ -36,6 +37,7 @@ router.post('/register', (req, res) => {
     req.checkBody('firstName', 'First Name is required').notEmpty();
     req.checkBody('lastName', 'Last Name is required').notEmpty();
     req.checkBody('regNo', 'Registration number is required').notEmpty();
+    req.checkBody('college', 'College is required').notEmpty();
     req.checkBody('department', 'Department is required').notEmpty();
     req.checkBody('email', 'Invalid Email Address').isEmail();
     req.checkBody('password', 'Password is required').notEmpty().isLength({min: 8});
@@ -54,6 +56,7 @@ router.post('/register', (req, res) => {
             lastName: newStudent.lastName,
             regNo: newStudent.regNo,
             department: newStudent.department,
+            college: newStudent.college,
             email: newStudent.email,
             password: newStudent.password,
             confirmPassword: newStudent.confirmPassword,
@@ -64,6 +67,7 @@ router.post('/register', (req, res) => {
             firstName: newStudent.firstName,
             lastName: newStudent.lastName,
             regNo: newStudent.regNo,
+            college: newStudent.college,
             department: newStudent.department,
             email: newStudent.email,
             password: newStudent.password,
@@ -252,11 +256,12 @@ router.post('/payment/:id', (req, res) => {
     if (data.gender === 'male') {
         room = fs.readFileSync('./utils/maleHostel.json', 'utf8');
         room  = JSON.parse(room);
+        console.log('data.hostel ' ,data.hostel);
         
-        if (data.hostel === 'blockA' && room.blockA < 10) {
-            maleHostel.hostel[0].blockName = 'blockA';
-            room.blockA += 1;
-            maleHostel.hostel[0].roomNumber = room.blockA;
+        if (data.hostel === 'Goodluck Ebele Jonathan Hostel' && room['Goodluck Ebele Jonathan Hostel'] < 10) {
+            maleHostel.hostel[0].blockName = 'Goodluck Ebele Jonathan Hostel';
+            room['Goodluck Ebele Jonathan Hostel'] += 1;
+            maleHostel.hostel[0].roomNumber = room['Goodluck Ebele Jonathan Hostel'];
             fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
                 if (err) {
                     console.log(err);
@@ -292,10 +297,10 @@ router.post('/payment/:id', (req, res) => {
                     });
                 }
             });
-        } else if (data.hostel === 'blockB' && room.blockB < 10) {
-            maleHostel.hostel[0].blockName = 'blockB';
-            room.blockB += 1;
-            maleHostel.hostel[0].roomNumber = room.blockB;
+        } else if (data.hostel === 'Post Graduate Hostel' && room['Post Graduate Hostel'] < 10) {
+            maleHostel.hostel[0].blockName = 'Post Graduate Hostel';
+            room['Post Graduate Hostel'] += 1;
+            maleHostel.hostel[0].roomNumber = room['Post Graduate Hostel'];
             fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
                 if (err) {
                     console.log(err);
@@ -331,10 +336,10 @@ router.post('/payment/:id', (req, res) => {
                     });
                 }
             });
-        } else if (data.hostel === 'blockC' && room.blockC < 10) {
-            maleHostel.hostel[0].blockName = 'blockC';
-            room.blockC += 1;
-            maleHostel.hostel[0].roomNumber = room.blockC;
+        } else if (data.hostel === 'Vet Hostel' && room['Vet Hostel'] < 10) {
+            maleHostel.hostel[0].blockName = 'Vet Hostel';
+            room['Vet Hostel'] += 1;
+            maleHostel.hostel[0].roomNumber = room['Vet Hostel'];
             fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
                 if (err) {
                     console.log(err);
@@ -370,10 +375,49 @@ router.post('/payment/:id', (req, res) => {
                     });
                 }
             });
-        } else if (data.hostel === 'blockD' && room.blockD < 10) {
-            maleHostel.hostel[0].blockName = 'blockD';
-            room.blockD += 1;
-            maleHostel.hostel[0].roomNumber = room.blockD;
+        } else if (data.hostel === 'Bungalow Hostel' && room['Bungalow Hostel'] < 10) {
+            maleHostel.hostel[0].blockName = 'Bungalow Hostel';
+            room['Bungalow Hostel'] += 1;
+            maleHostel.hostel[0].roomNumber = room['Bungalow Hostel'];
+            fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('Database File updated sucessfully ', room);
+            });
+            maleHostel.save((err) => {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    Student.findOneAndUpdate({_id: req.params.id}, {$set: {
+                        room: `${maleHostel.hostel[0].blockName.toUpperCase()}: Room ${maleHostel.hostel[0].roomNumber}`,
+                        amount: data.amount
+                    }}, {new: true}, (err, updatedStudent) => {
+                        if (err) {
+                            return console.log(err);
+                        } else {
+                            let payment = new Payment({
+                                name: `${updatedStudent.firstName} ${updatedStudent.firstName}`,
+                                phone: `${updatedStudent.phone}`,
+                                regNo: `${updatedStudent.regNo}`,
+                                room: `${updatedStudent.room}`,
+                                amount: data.amount
+                            });
+                            payment.save((err) => {
+                                if (err) {
+                                    return console.log(err);
+                                }
+                            });
+                            req.flash('success', 'Payment Successful.');
+                            res.redirect(`/students/receipt/${req.params.id}`);
+                        }
+                    });
+                }
+            });
+        } else if (data.hostel === 'IBB' && room['IBB'] < 10) {
+            maleHostel.hostel[0].blockName = 'IBB';
+            room['IBB'] += 1;
+            maleHostel.hostel[0].roomNumber = room['IBB'];
             fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
                 if (err) {
                     console.log(err);
@@ -436,10 +480,10 @@ router.post('/payment/:id', (req, res) => {
     if (data.gender === 'female') {
         room = fs.readFileSync('./utils/femaleHostel.json', 'utf8');
         room  = JSON.parse(room);
-        if (data.hostel === 'blockA' && room.blockA < 10) {
-            femaleHostel.hostel[0].blockName = 'blockA';
-            room.blockA += 1;
-            femaleHostel.hostel[0].roomNumber = room.blockA;
+        if (data.hostel === 'NDDC Hostel' && room['NDDC Hostel'] < 10) {
+            femaleHostel.hostel[0].blockName = 'NDDC Hostel';
+            room['NDDC Hostel'] += 1;
+            femaleHostel.hostel[0].roomNumber = room['NDDC Hostel'];
             fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
                 if (err) {
                     console.log(err);
@@ -475,11 +519,11 @@ router.post('/payment/:id', (req, res) => {
                     });
                 }
             });        
-        } else if (data.hostel === 'blockB' && room.blockB < 10) {
-            femaleHostel.hostel[0].blockName = 'blockB';
-            room.blockB1;
+        } else if (data.hostel === 'NDDC Hostel' && room['NDDC Hostel'] < 10) {
+            femaleHostel.hostel[0].blockName = 'NDDC Hostel';
+            room['NDDC Hostel'] += 1;
             femaleHostel.hostel[0].roomNumber = room.blockB;
-            fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
+            fs.writeFile('./utils/femaleHostel.json', JSON.stringify(room), (err) => {
                 if (err) {
                     console.log(err);
                 }
@@ -514,12 +558,11 @@ router.post('/payment/:id', (req, res) => {
                     });
                 }
             });        
-        } else if (data.hostel === 'blockC' && room.blockC < 10) {
-            femaleHostel.hostel[0].blockName = 'blockC';
-            room.blockC += 1;
-            femaleHostel.hostel[0].roomNumber = room.blockC;
-            console.log('room', room);
-            fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
+        } else if (data.hostel === 'Goodluck Ebele Jonathan Hostel' && room['Goodluck Ebele Jonathan Hostel'] < 10) {
+            femaleHostel.hostel[0].blockName = 'Goodluck Ebele Jonathan Hostel';
+            room['Goodluck Ebele Jonathan Hostel'] += 1;
+            femaleHostel.hostel[0].roomNumber = room['Goodluck Ebele Jonathan Hostel'];
+            fs.writeFile('./utils/femaleHostel.json', JSON.stringify(room), (err) => {
                 if (err) {
                     console.log(err);
                 }
@@ -554,11 +597,11 @@ router.post('/payment/:id', (req, res) => {
                     });
                 }
             });        
-        } else if (data.hostel === 'blockD' && room.blockD < 10) {
-            femaleHostel.hostel[0].blockName = 'blockD';
-            room.blockD += 1;
-            femaleHostel.hostel[0].roomNumber = room.blockD;
-            fs.writeFile('./utils/maleHostel.json', JSON.stringify(room), (err) => {
+        } else if (data.hostel === 'Post Graduate Hostel' && room['Post Graduate Hostel'] < 10) {
+            femaleHostel.hostel[0].blockName = 'Post Graduate Hostel';
+            room['Post Graduate Hostel'] += 1;
+            femaleHostel.hostel[0].roomNumber = room['Post Graduate Hostel'];
+            fs.writeFile('./utils/femaleHostel.json', JSON.stringify(room), (err) => {
                 if (err) {
                     console.log(err);
                 }
@@ -593,6 +636,84 @@ router.post('/payment/:id', (req, res) => {
                     });
                 }
             });        
+        } else if (data.hostel === 'Vet Hostel' && room['Vet Hostel'] < 10) {
+            femaleHostel.hostel[0].blockName = 'Vet Hostel';
+            room['Vet Hostel'] += 1;
+            femaleHostel.hostel[0].roomNumber = room['Vet Hostel'];
+            fs.writeFile('./utils/femaleHostel.json', JSON.stringify(room), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('Database File updated sucessfully ', room);
+            });
+            femaleHostel.save((err) => {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    Student.findOneAndUpdate({_id: req.params.id}, {$set: {
+                        room: `${femaleHostel.hostel[0].blockName.toUpperCase()}: Room ${femaleHostel.hostel[0].roomNumber}`,
+                        amount: data.amount
+                    }}, {new: true}, (err, updatedStudent) => {
+                        if (err) {
+                            return console.log(err);
+                        } else {
+                            let payment = new Payment({
+                                name: `${updatedStudent.firstName} ${updatedStudent.firstName}`,
+                                phone: `${updatedStudent.phone}`,
+                                regNo: `${updatedStudent.regNo}`,
+                                room: `${updatedStudent.room}`,
+                                amount: data.amount
+                            });
+                            payment.save((err) => {
+                                if (err) {
+                                    return console.log(err);
+                                }
+                            });
+                            req.flash('success', 'Payment Successful.');
+                            res.redirect(`/students/receipt/${req.params.id}`);
+                        }
+                    });
+                }
+            }); 
+        } else if (data.hostel === 'Grace Alele Hostel' && room['Grace Alele Hostel'] < 10) {
+            femaleHostel.hostel[0].blockName = 'Grace Alele Hostel';
+            room['Grace Alele Hostel'] += 1;
+            femaleHostel.hostel[0].roomNumber = room['Grace Alele Hostel'];
+            fs.writeFile('./utils/femaleHostel.json', JSON.stringify(room), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('Database File updated sucessfully ', room);
+            });
+            femaleHostel.save((err) => {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    Student.findOneAndUpdate({_id: req.params.id}, {$set: {
+                        room: `${femaleHostel.hostel[0].blockName.toUpperCase()}: Room ${femaleHostel.hostel[0].roomNumber}`,
+                        amount: data.amount
+                    }}, {new: true}, (err, updatedStudent) => {
+                        if (err) {
+                            return console.log(err);
+                        } else {
+                            let payment = new Payment({
+                                name: `${updatedStudent.firstName} ${updatedStudent.firstName}`,
+                                phone: `${updatedStudent.phone}`,
+                                regNo: `${updatedStudent.regNo}`,
+                                room: `${updatedStudent.room}`,
+                                amount: data.amount
+                            });
+                            payment.save((err) => {
+                                if (err) {
+                                    return console.log(err);
+                                }
+                            });
+                            req.flash('success', 'Payment Successful.');
+                            res.redirect(`/students/receipt/${req.params.id}`);
+                        }
+                    });
+                }
+            });  
         } else {
             Student.findOne({_id: req.params.id}, (err, student) => {
                 if (err) {

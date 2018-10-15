@@ -1,4 +1,7 @@
 <header class="showcase">
+    <div id="adminDiv">
+        <a href="#" class="modal-trigger" data-target="adminLoginModal">Admin</a>
+    </div>
     <div class="content">
         <i class="mdi mdi-sofa" style="font-size: 100px;"></i>
         <!-- <img src="/img/Picture1.png" class="responsive-img logo" alt="Uzoanya Dominic"> -->
@@ -11,6 +14,48 @@
         </div>
     </div>
 </header>
+<div id="adminLoginModal" class="modal">
+    <div class="modal-content">
+        <h4 class="center">Admin Login</h4>
+        <form name="adminLoginForm" method="POST" action="/admins/login">
+        {{#if adminErrors}}
+            {{#each adminErrors}}
+                <div>
+                    <p class="red-text text-darken-2 error-messages center">{{this.msg}}</p>
+                </div>
+            {{/each}}
+        {{/if}}
+        {{#if adminLoginError}}
+            <p class="red-text text-darken-2 error-messages center">{{adminLoginError}}</p>
+        {{/if}}
+            <div class="row">
+                <div class="col s12 input-field">
+                    <i class="mdi mdi-account-outline prefix"></i>
+                    <input type="text" name="adminUsername" id="adminUsername" class="validate" autofocus value="{{adminUsername}}">
+                    <label for="adminUsername">Username</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 input-field">
+                    <i class="mdi mdi-lock prefix"></i>
+                    <input type="password" name="adminPassword" id="adminPassword" class="validate" value="{{adminPassword}}">
+                    <label for="adminPassword">Password</label>
+                    <span class="helper-text" data-error="Please provide your password"></span>
+                    {{#if adminPasswordError}}
+                        <div>
+                            <p class="red-text text-darken-2 error-messages center">{{adminPasswordError}}</p>
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 input-field">
+                    <button class="btn waves-effect waves-white" type="submit" id="adminLoginButton">Log In</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 <!-- Services-->
 <section class="services">
     <div class="container grid-3 center">

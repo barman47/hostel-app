@@ -1,6 +1,20 @@
 $(document).ready(function(){
     $('.sidenav').sidenav();
     $('select').formSelect();
+    function loadHostel (gender) {
+        var hostel = document.form.hostelBlock;
+        var url = `/hostels/${gender}.json`;
+        $.getJSON(url, function (data) {
+            var hostels = [];
+            for (var prop in data) {
+                hostels.push(data[prop]);
+                var hostBlock = document.createElement('option');
+                hostBlock.innerHTML = data[prop];
+                hostel.appendChild(hostBlock);
+                $('select').formSelect();
+            } 
+        });
+    }
     var form = document.form;
     var inputs = [
     	form.name,
@@ -207,6 +221,8 @@ $(document).ready(function(){
             }
         }, false);
     }
+    var gender = form.gender.value;
+    loadHostel(gender);
     form.addEventListener('submit', submitForm, false);
     checkInputs();
 });
